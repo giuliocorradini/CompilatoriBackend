@@ -101,7 +101,7 @@ int main() {
     }
 
     for (auto const [bb, adj]: cfg) {
-        cout << bb << ", out: " << out[bb] << endl;
+        cerr << bb << ", out: " << out[bb] << endl;
     }
 
     return 0;
