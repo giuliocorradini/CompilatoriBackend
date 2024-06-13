@@ -8,6 +8,10 @@ test: Loop.bc
 prof: licm.bc
 	opt -passes="mem2reg,licmy" opt-licm.bc -S 1> /dev/null
 
+mecat: licmecat.bc
+	opt -passes="mem2reg,licmy" opt-licmecat.bc -S 1> /dev/null
+
+
 %-cfg: %.bc
 	opt -passes="dot-cfg" opt-$<
 	open-dots
