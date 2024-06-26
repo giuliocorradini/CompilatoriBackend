@@ -1,6 +1,5 @@
 %.bc: %.c
-	$(CC) -c -O0 -S -emit-llvm -o $@ $<
-	sed 's/optnone//g' $@ > opt-$@
+	$(CC) -c -O0 -disable-O0-optnone -S -emit-llvm -o $@ $<
 
 test: Loop.bc
 	opt -passes="mem2reg" opt-Loop.bc -S > opt-m2r-Loop.bc
