@@ -4,5 +4,5 @@ void loops(int *a, int *b, int *c, int *d) {
         a[i] = b[i] * c[i];
 
     for (int i=0; i<TRIPS; i++)
-        d[i] = a[i+3] + c[i];
+        d[i] = a[i-1] + c[i];
 }

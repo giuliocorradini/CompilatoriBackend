@@ -1,7 +1,7 @@
 .PRECIOUS: %.bc
 
 %.bc: %.c
-	clang -O0 -emit-llvm -c $^ -S -o $@
+	clang -O0 -disable-O0-optnone -emit-llvm -c $^ -S -o $@
 
 test-%: %.bc
 	opt -passes="localopts" $*.bc -S -o $*.optimized.bc
