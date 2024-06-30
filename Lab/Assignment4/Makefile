@@ -1,15 +1,17 @@
-%.bc: %.c
-	$(CC) -c -O0 -disable-O0-optnone -S -emit-llvm -o $@ $<
+.PRECIOUS: %.bc
 
-test: Loop.bc
-	opt -passes="mem2reg" opt-Loop.bc -S > opt-m2r-Loop.bc
-	opt -passes="my-loop-fusion" opt-m2r-Loop.bc -S > /dev/null
+%.bc: %.c
+	$(CC) -c -O0 -S -emit-llvm -o $@ $<
+	sed 's/optnone//g' $@ > opt-$@
+
+test-%: %.bc
+	opt -passes="mem2reg" opt-$*.bc -S > opt-m2r-$*.bc
+	opt -passes="my-loop-fusion" opt-m2r-$*.bc -S > /dev/null
 
 
 %-cfg: %.bc
 	opt -passes="mem2reg" opt-$< -S -o mr2-opt-$<
 	opt -passes="dot-cfg" m2r-opt-$< > /dev/null
-	
 
 .PHONY: clean cleanall print-cfg
 
